@@ -21,6 +21,12 @@ namespace assignment2
         try
         {
           result = DateTime.ParseExact(dateInput, format, provider);
+
+          // TODO: Ask teacher what algorithm is used for this line? Is there 
+          // a limitation compared to Zeller?
+          // Console.WriteLine("You were born on a {0}", result.DayOfWeek); 
+          
+          
           Zeller(result.Day, result.Month, result.Year);
         }
         catch (FormatException)
@@ -58,11 +64,15 @@ namespace assignment2
         year = year - 1;
       }
 
-      int yearOfDecade = year / 100;
-      int yearOfCentury = year % 100;
-      int dayOfWeek = (day + ((13 * (month + 1)) / 5) + yearOfCentury + (yearOfCentury / 4) + (yearOfDecade / 4) + 5 * yearOfDecade) % 7;
+      int yearOfCentury = year / 100;
+      int yearOfDecade = year % 100;
+      int dayOfWeek = (day + ((13 * (month + 1)) / 5) + yearOfDecade + (yearOfDecade / 4) + (yearOfCentury / 4) + 5 * yearOfCentury) % 7;
+
+      // Example with floor:
+      // int dayOfWeek = (day + (int)(Math.Floor((double)((13 * (month + 1) / 5))) + yearOfDecade + Math.Floor((double)(yearOfDecade / 4)) + Math.Floor((double)(yearOfCentury / 4)) + 5 * yearOfCentury)) % 7;
 
       string prefix = "You were born on a";
+  
 
       // Switch case to change the number of the day to text instead
       switch (dayOfWeek)
